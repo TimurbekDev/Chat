@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { cwd } from 'process';
 import { PrismaModule } from './prisma';
+import { ExceptionHandlerFilter } from './filters';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -18,6 +20,11 @@ import { PrismaModule } from './prisma';
     PrismaModule
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      useClass:ExceptionHandlerFilter,
+      provide: APP_FILTER
+    }
+  ],
 })
 export class AppModule {}
