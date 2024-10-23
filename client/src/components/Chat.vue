@@ -1,12 +1,11 @@
 <template>
   <div class="container">
     <h2 class="text-center my-4">Chat Room</h2>
-
+    <div v-if="typingUser" class="typing-indicator text-center">{{ typingUser }} is typing...</div>
     <div class="chat-box p-3 border mb-4" style="height: 300px; overflow-y: auto;">
       <div v-for="msg in messages" :key="msg.timestamp" :class="['message', msg.username === currentUser ? 'right' : 'left']">
         <strong>{{ msg.username }}:</strong> {{ msg.text }}
       </div>
-      <div v-if="typingUser" class="typing-indicator">{{ typingUser }} is typing...</div>
     </div>
 
     <form @submit.prevent="sendMessage">
@@ -54,7 +53,7 @@ export default {
       this.typingUser = username;
       setTimeout(() => {
         this.typingUser = null;
-      }, 1500);
+      }, 2000);
     });
 
     this.socket = socket;
